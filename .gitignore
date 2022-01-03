@@ -1,0 +1,7 @@
+*
+!nw.exe
+!index.html
+!package.json
+!data
+!data/*
+!.gitignore
