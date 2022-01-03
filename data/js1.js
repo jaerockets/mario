@@ -13,3 +13,11 @@ ctx.fillRect(0, 525, 300, 1)
 ctx.fillStyle = '#ffffff'
 ctx.font = "11px consolas"
 ctx.fillText('bread man killed you', 0, 536)
+
+const URL = 'https://sean.fish/mal_unapproved/anime';
+fetch(URL)
+.then(res => res.text())
+.then(text => {
+    console.log(text);
+})
+.catch(err => console.log(err));
