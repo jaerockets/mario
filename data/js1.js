@@ -1,8 +1,15 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
 
-ctx.fillStyle = 'white'
-ctx.fillRect(0, 0, 25, 25)
+window.resizeTo(300, 600)
+
+// remember 40 unit canvas buffer
+
+ctx.fillStyle = '#00FF00'
+ctx.fillRect(0, 525, 300, 1)
+ctx.fillStyle = '#ffffff'
+ctx.font = "11px consolas"
+ctx.fillText('bread man killed you', 0, 536)
