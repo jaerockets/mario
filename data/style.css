@@ -6,6 +6,7 @@ body {
 }
 
 #notes {
+    font-size: 10px;
     background-color: #000000;
     color: #ffffff;
     border-color: #09ff00;

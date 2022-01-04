@@ -19,6 +19,14 @@ ctx.fillText('bread man killed you', 0, 536)
 ctx.fillStyle = '#000000'
 ctx.fillRect(187, 3, 95, 95)
 
+ctx.fillStyle = '#ff0000'
+ctx.fillRect(260, 90, 10, 10)
+
+
+function hide() {
+    document.getElementById('notes').style.display='none';
+}
+
 /* const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
 .then(res => res.text())
@@ -27,10 +35,7 @@ fetch(URL)
 })
 .catch(err => console.log(err)); */
 
-
-//copied from squaremenu
-
-/* var mouseX = 0
+var mouseX = 0
 var mouseY = 0
 
 function coordCheck(event) { //sets mousePos coords to read-only mousePos values
@@ -44,5 +49,3 @@ function coordCheck(event) { //sets mousePos coords to read-only mousePos values
 }
 
 canvas.addEventListener("mouseup", coordCheck, false)
-
-*/
