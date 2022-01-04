@@ -3,4 +3,17 @@ body {
         color: #09ff00;
         margin: 0;
         overflow: hidden;
-    }
+}
+
+#notes {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #09ff00;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    overflow: hidden;
+    resize: none;
+}

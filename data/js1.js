@@ -9,8 +9,8 @@ window.resizeTo(300, 600)
 // remember 40 unit canvas buffer
 
 ctx.fillStyle = '#00FF00'
-ctx.fillRect(185, 0, 100, 100)
-ctx.fillRect(0, 525, 100, 1)
+//ctx.fillRect(185, 0, 100, 100)
+ctx.fillRect(0, 525, 300, 1)
 
 ctx.fillStyle = '#ffffff'
 ctx.font = "11px consolas"
@@ -30,7 +30,7 @@ fetch(URL)
 
 //copied from squaremenu
 
-var mouseX = 0
+/* var mouseX = 0
 var mouseY = 0
 
 function coordCheck(event) { //sets mousePos coords to read-only mousePos values
@@ -43,5 +43,6 @@ function coordCheck(event) { //sets mousePos coords to read-only mousePos values
     }
 }
 
-canvas.addEventListener("mousemove", coordCheck, false); //runs coordCheck ;132 on mousemove event
-canvas.addEventListener("mouseup", coordCheck, false) //runs mouseRelease ;128 on mouseup event
+canvas.addEventListener("mouseup", coordCheck, false)
+
+*/
