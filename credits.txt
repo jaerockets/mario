@@ -1,0 +1,4 @@
+sean - myanimelist unapproved entries list
+site: https://sean.fish/mal_unapproved/anime
+github: https://github.com/Hiyori-API/checker_mal
+
