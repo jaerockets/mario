@@ -27,13 +27,17 @@ function hide() {
     document.getElementById('notes').style.display='none';
 }
 
-/* const URL = 'https://sean.fish/mal_unapproved/anime';
+const fs = require('fs')
+
+const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
 .then(res => res.text())
 .then(text => {
-    console.log(text);
+    const d = new Date();
+    var logNo=d.getTime()
+    fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
 })
-.catch(err => console.log(err)); */
+.catch(err => console.log(err));
 
 var mouseX = 0
 var mouseY = 0
