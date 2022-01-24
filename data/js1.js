@@ -49,7 +49,6 @@ fetch(URL)
     }
     else {
         console.log('no update')
-        console.log(logNoRecent.toString())
     }
             
 })
