@@ -28,14 +28,31 @@ function hide() {
 }
 
 const fs = require('fs')
+var recent=fs.readFileSync(`./data/seanLog/recent.txt`)
+
+if (fs.readFileSync(`./data/seanLog/text.txt`) == fs.readFileSync(`./data/seanLog/recent1.txt`)) {
+    console.log('true')
+}
+else {
+    console.log('false')
+}
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
 .then(res => res.text())
 .then(text => {
     const d = new Date();
-    var logNo=d.getTime()
-    fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
+    logNo=d.getTime()
+    if (text == fs.readFileSync(`./data/seanLog/log${recent}.txt`).toString()) {
+        console.log('true')
+    }
+        else {
+            //console.log('false')
+            //console.log(fs.readFileSync(`./data/seanLog/log${recent}.txt`).toString())
+           // console.log(text)
+    //    fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
+    //    fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
+    }
 })
 .catch(err => console.log(err));
 
