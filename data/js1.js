@@ -31,8 +31,8 @@ const fs = require('fs')
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
-.then(res => res.text())
-.then(text => {
+.then(function(res){return res.text()})
+.then(function(text) {
     const d = new Date();
     logNo=d.getTime()
     var logNoRecent=fs.readFileSync('./data/seanLog/recent.txt')
