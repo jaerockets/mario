@@ -43,7 +43,7 @@ fetch(URL)
     if (text != recent) {
         fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
         fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
-        //console.log('update ocurred')
+        console.log('update ocurred')
     }
     else {
         console.log('no update')
