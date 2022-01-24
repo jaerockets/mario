@@ -52,7 +52,7 @@ fetch(URL)
     }
             
 })
-.catch(err => console.log(err));
+.catch(function(err){console.log(err)});
 
 var mouseX = 0
 var mouseY = 0
