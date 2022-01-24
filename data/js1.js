@@ -28,14 +28,6 @@ function hide() {
 }
 
 const fs = require('fs')
-var recent=fs.readFileSync(`./data/seanLog/recent.txt`)
-
-if (fs.readFileSync(`./data/seanLog/text.txt`) == fs.readFileSync(`./data/seanLog/recent1.txt`)) {
-    console.log('true')
-}
-else {
-    console.log('false')
-}
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
@@ -43,16 +35,23 @@ fetch(URL)
 .then(text => {
     const d = new Date();
     logNo=d.getTime()
-    if (text == fs.readFileSync(`./data/seanLog/log${recent}.txt`).toString()) {
-        console.log('true')
+    var logNoRecent=fs.readFileSync('./data/seanLog/recent.txt')
+    var index1 = text.indexOf("<li>This was updated")
+    var index2 = text.indexOf('\n', index1)
+    text=text.replace(text.substring(index1, index2),'')
+    var recent = fs.readFileSync(`./data/seanLog/log${logNoRecent}.txt`).toString()
+    index1=recent.indexOf("<li>This was updated")
+    index2=recent.indexOf('\n', index1)
+    recent=recent.replace(recent.substring(index1, index2),'')
+    if (text != recent) {
+        fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
+        fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
     }
-        else {
-            //console.log('false')
-            //console.log(fs.readFileSync(`./data/seanLog/log${recent}.txt`).toString())
-           // console.log(text)
-    //    fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
-    //    fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
+    else {
+        console.log('no update')
+        console.log(logNoRecent.toString())
     }
+            
 })
 .catch(err => console.log(err));
 
