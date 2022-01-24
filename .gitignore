@@ -4,5 +4,6 @@
 !package.json
 !data
 !data/*
+!data/test
 !.gitignore
 !credits.txt
