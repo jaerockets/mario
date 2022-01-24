@@ -39,7 +39,7 @@ Unapproved MAL Entries - Anime
   </div>
   <ul>
     <li>There are currently 4182 unapproved anime</li>
-    <li>This was updated 177 minutes ago</li>
+    
   </ul>
   <ol>
 
