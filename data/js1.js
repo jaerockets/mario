@@ -40,10 +40,6 @@ fetch(URL)
     var index2 = text.indexOf('\n', index1)
     text=text.replace(text.substring(index1, index2),'')
     var recent = fs.readFileSync(`./data/seanLog/log${logNoRecent}.txt`).toString()
-    var index3 = recent.indexOf("<li>This was updated")
-    var index4 = recent.indexOf('\n', index3)
-    recent=recent.replace(recent.substring(index3, index4),'')
-    console.log(index1, index2, index3, index4)
     if (text != recent) {
         fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
         fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
