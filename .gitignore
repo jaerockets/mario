@@ -3,6 +3,5 @@
 !index.html
 !package.json
 !data
-!data/*
 !.gitignore
 !credits.txt
