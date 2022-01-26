@@ -66,3 +66,5 @@ function coordCheck(event) { //sets mousePos coords to read-only mousePos values
 }
 
 canvas.addEventListener("mouseup", coordCheck, false)
+
+//just testing something
