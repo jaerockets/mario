@@ -8,7 +8,7 @@ window.resizeTo(300, 600)
 
 // remember 40 unit canvas buffer
 
-ctx.fillStyle = '#00FF00'
+/* tx.fillStyle = '#00FF00'
 //ctx.fillRect(185, 0, 100, 100)
 ctx.fillRect(0, 525, 300, 1)
 
@@ -20,14 +20,29 @@ ctx.fillStyle = '#000000'
 ctx.fillRect(187, 3, 95, 95)
 
 ctx.fillStyle = '#ff0000'
-ctx.fillRect(260, 90, 10, 10)
-
+ctx.fillRect(260, 90, 10, 10) */
 
 function hide() {
     document.getElementById('notes').style.display='none';
 }
 
 const fs = require('fs')
+const gui = require('nw.gui');
+
+var mouseX = 0
+var mouseY = 0
+
+function coordCheck(event) { //sets mousePos coords to read-only mousePos values
+    mouseX = event.pageX
+    mouseY = event.pageY
+    if (mouseX > 84 && mouseX < 96) {
+        if (mouseY > 527 && mouseY < 539) {
+            gui.Shell.openExternal("https://sean.fish/mal_unapproved/anime")
+        }
+    }
+}
+
+canvas.addEventListener("mouseup", coordCheck, false)
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
 fetch(URL)
@@ -47,24 +62,15 @@ fetch(URL)
     }
     else {
         console.log('no update')
+        ctx.fillStyle='#00ff00'
+        ctx.fillRect(0, 525, 300, 1)
+        ctx.fillStyle = '#ffffff'
+        ctx.font = "11px consolas"
+        ctx.fillText(`New MAL entry!`, 0, 536)
+        ctx.fillRect(85, 528, 10, 10)
     }
             
 })
 .catch(function(err){console.log(err)});
-
-var mouseX = 0
-var mouseY = 0
-
-function coordCheck(event) { //sets mousePos coords to read-only mousePos values
-    mouseX = event.pageX
-    mouseY = event.pageY
-    if (mouseX > 187) {
-        if (mouseY < 100) {
-            console.log('i eat weed')
-        }
-    }
-}
-
-canvas.addEventListener("mouseup", coordCheck, false)
 
 //just testing something
