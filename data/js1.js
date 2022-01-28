@@ -17,12 +17,14 @@ var clickX = 0
 var clickY = 0
 var mouseX = 0
 var mouseY = 0
+var textX = 0
+var textY = 545
 var sysTime = new Date()
 
 function onClick(event) { //sets mousePos coords to read-only mousePos values
     clickX = event.pageX
     clickY = event.pageY
-    console.log(mouseX, mouseY)
+    //console.log(mouseX, mouseY)
     if (clickX > 0 && clickX < 84) {
         if (clickY > 528 && clickY < 539) {
             gui.Shell.openExternal("https://sean.fish/mal_unapproved/anime")
@@ -37,12 +39,12 @@ function mouseHov(event) {
     function draw() {
         if (mouseX > 0 && mouseX < 84 && mouseY > 528 && mouseY < 539) {
             ctx.fillStyle = '#ffffff'
-            ctx.fillRect(0, 537, 83, 1)
+            ctx.fillRect(textX, textY, cellWidth, 1)
             document.body.style.cursor = "pointer"
         }
         else {
             ctx.fillStyle =  '#000000'
-            ctx.fillRect(0, 537, 83, 1)
+            ctx.fillRect(textX, textY, cellWidth, 1)
             document.body.style.cursor = "default"
         }
     }
@@ -50,6 +52,8 @@ function mouseHov(event) {
 
 canvas.addEventListener("mousemove", mouseHov, false)
 canvas.addEventListener("mouseup", onClick, false)
+
+var cellWidth = 0
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
     fetch(URL)
@@ -70,10 +74,20 @@ const URL = 'https://sean.fish/mal_unapproved/anime';
         else {
             console.log('no update')
             ctx.fillStyle = '#00ff00'
-            ctx.fillRect(0, 525, 300, 1)
+            ctx.fillRect(0, 530, 300, 1)
             ctx.fillStyle = '#ffffff'
-            ctx.font = "11px consolas"
-            ctx.fillText(`${sysTime.getHours() + ":" + sysTime.getMinutes() + ":" + sysTime.getSeconds()} New MAL entry!`, 0, 536)
+            ctx.font = "11px consolas" 
+            ctx.fillText(`${sysTime.getHours() + ":" + `${sysTime.getMinutes()<10?'0':''}` + sysTime.getMinutes()}`, textX, textY)
+            var timeMetrics = ctx.measureText(`${sysTime.getHours() + ":" + sysTime.getMinutes()}`)
+            //console.log(metrics.width)
+            var text = 'New MAL Entry!'
+            ctx.fillText(text, textX+timeMetrics.width+2, textY)
+            var textMetrics = ctx.measureText(text)
+            cellWidth=
+                 Math.abs(timeMetrics.actualBoundingBoxLeft)
+                +Math.abs(timeMetrics.actualBoundingBoxRight)
+                +Math.abs(textMetrics.actualBoundingBoxLeft)
+                +Math.abs(textMetrics.actualBoundingBoxRight)
         }
 
     })
