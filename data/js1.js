@@ -12,6 +12,32 @@ function hide() {
 
 const fs = require('fs')
 const gui = require('nw.gui');
+class Cell {
+    constructor(timeStamp, textContent, hyperLink, textWidth) {
+        this.timeStamp = timeStamp
+        this.textContent = textContent
+        this. hyperlink = hyperLink
+        this.textWidth = textWidth
+    }
+}
+
+var text1 = 'New MAL Entry!'
+var timeMetrics2 = ctx.measureText(`${fs.readFileSync('./data/cellData/time1.txt')}`)
+console.log(timeMetrics2)
+var textMetrics2 = ctx.measureText(text1)
+var cellWidth2 =
+    Math.abs(timeMetrics2.actualBoundingBoxLeft)
+    + Math.abs(timeMetrics2.actualBoundingBoxRight)
+    + Math.abs(textMetrics2.actualBoundingBoxLeft)
+    + Math.abs(textMetrics2.actualBoundingBoxRight)
+    +4
+
+let cell = new Cell (
+    fs.readFileSync('./data/cellData/time1.txt').toString(),
+    'New MAL Entry!',
+    'https://sean.fish/mal_unapproved/anime',
+    cellWidth2,
+)
 
 var clickX = 0
 var clickY = 0
@@ -35,14 +61,14 @@ function mouseHov(event) {
     mouseY = event.pageY
     setInterval(draw, 1000 / 30)
     function draw() {
-        if (mouseX > 0 && mouseX < cellWidth && mouseY > 528 && mouseY < 545) {
+        if (mouseX > 0 && mouseX < cellWidth1 && mouseY > 528 && mouseY < 545) {
             ctx.fillStyle = '#ffffff'
-            ctx.fillRect(textX1, textY1 - 10, cellWidth, 1)
+            ctx.fillRect(textX1, textY1 - 10, cellWidth1, 1)
             document.body.style.cursor = "pointer"
         }
         else {
             ctx.fillStyle = '#000000'
-            ctx.fillRect(textX1, textY1, cellWidth, 1)
+            ctx.fillRect(textX1, textY1, cellWidth1, 1)
             document.body.style.cursor = "default"
         }
     }
@@ -51,7 +77,7 @@ function mouseHov(event) {
 canvas.addEventListener("mousemove", mouseHov, false)
 canvas.addEventListener("mouseup", onClick, false)
 
-var cellWidth = 0
+var cellWidth1 = 0
 var textX1 = 0
 var textY1 = 545
 var cellMove = 10
@@ -82,7 +108,7 @@ fetch(URL)
             var text = 'New MAL Entry!'
             ctx.fillText(text, textX1 + timeMetrics.width + 2, textY1)
             var textMetrics = ctx.measureText(text)
-            cellWidth =
+            cellWidth1 =
                 Math.abs(timeMetrics.actualBoundingBoxLeft)
                 + Math.abs(timeMetrics.actualBoundingBoxRight)
                 + Math.abs(textMetrics.actualBoundingBoxLeft)
@@ -99,10 +125,11 @@ fetch(URL)
             ctx.font = "11px consolas"
             ctx.fillText(`${fs.readFileSync('./data/cellData/time1.txt')}`, textX1, textY1 - cellMove)
             var timeMetrics = ctx.measureText(`${fs.readFileSync('./data/cellData/time1.txt')}`)
+            console.log(timeMetrics)
             var text = 'New MAL Entry!'
             ctx.fillText(text, textX1 + timeMetrics.width + 2, textY1 - cellMove)
             var textMetrics = ctx.measureText(text)
-            cellWidth =
+            cellWidth1 =
                 Math.abs(timeMetrics.actualBoundingBoxLeft)
                 + Math.abs(timeMetrics.actualBoundingBoxRight)
                 + Math.abs(textMetrics.actualBoundingBoxLeft)
