@@ -17,16 +17,14 @@ var clickX = 0
 var clickY = 0
 var mouseX = 0
 var mouseY = 0
-var textX = 0
-var textY = 545
 var sysTime = new Date()
 
 function onClick(event) { //sets mousePos coords to read-only mousePos values
     clickX = event.pageX
     clickY = event.pageY
-    //console.log(mouseX, mouseY)
+    console.log(mouseX, mouseY)
     if (clickX > 0 && clickX < 84) {
-        if (clickY > 528 && clickY < 539) {
+        if (clickY > 528 && clickY < 545) {
             gui.Shell.openExternal("https://sean.fish/mal_unapproved/anime")
         }
     }
@@ -37,14 +35,14 @@ function mouseHov(event) {
     mouseY = event.pageY
     setInterval(draw, 1000 / 30)
     function draw() {
-        if (mouseX > 0 && mouseX < 84 && mouseY > 528 && mouseY < 539) {
+        if (mouseX > 0 && mouseX < cellWidth && mouseY > 528 && mouseY < 545) {
             ctx.fillStyle = '#ffffff'
-            ctx.fillRect(textX, textY, cellWidth, 1)
+            ctx.fillRect(textX1, textY1 - 10, cellWidth, 1)
             document.body.style.cursor = "pointer"
         }
         else {
-            ctx.fillStyle =  '#000000'
-            ctx.fillRect(textX, textY, cellWidth, 1)
+            ctx.fillStyle = '#000000'
+            ctx.fillRect(textX1, textY1, cellWidth, 1)
             document.body.style.cursor = "default"
         }
     }
@@ -54,9 +52,12 @@ canvas.addEventListener("mousemove", mouseHov, false)
 canvas.addEventListener("mouseup", onClick, false)
 
 var cellWidth = 0
+var textX1 = 0
+var textY1 = 545
+var cellMove = 10
 
 const URL = 'https://sean.fish/mal_unapproved/anime';
-    fetch(URL)
+fetch(URL)
     .then(function (res) { return res.text() })
     .then(function (text) {
         const d = new Date();
@@ -69,25 +70,44 @@ const URL = 'https://sean.fish/mal_unapproved/anime';
         if (text != recent) {
             fs.writeFileSync(`./data/seanLog/recent.txt`, `${logNo}`)
             fs.writeFileSync(`./data/seanLog/log${logNo}.txt`, text);
-            console.log('update ocurred')
-        }
-        else {
-            console.log('no update')
+            var time1 = `${sysTime.getHours() + ":" + `${sysTime.getMinutes() < 10 ? '0' : ''}` + sysTime.getMinutes()}`
+            fs.writeFileSync('./data/cellData/time1.txt', `${time1}`)
             ctx.fillStyle = '#00ff00'
             ctx.fillRect(0, 530, 300, 1)
             ctx.fillStyle = '#ffffff'
-            ctx.font = "11px consolas" 
-            ctx.fillText(`${sysTime.getHours() + ":" + `${sysTime.getMinutes()<10?'0':''}` + sysTime.getMinutes()}`, textX, textY)
+            ctx.font = "11px consolas"
+            ctx.fillText(`${sysTime.getHours() + ":" + `${sysTime.getMinutes() < 10 ? '0' : ''}` + sysTime.getMinutes()}`, textX1, textY1)
             var timeMetrics = ctx.measureText(`${sysTime.getHours() + ":" + sysTime.getMinutes()}`)
             //console.log(metrics.width)
             var text = 'New MAL Entry!'
-            ctx.fillText(text, textX+timeMetrics.width+2, textY)
+            ctx.fillText(text, textX1 + timeMetrics.width + 2, textY1)
             var textMetrics = ctx.measureText(text)
-            cellWidth=
-                 Math.abs(timeMetrics.actualBoundingBoxLeft)
-                +Math.abs(timeMetrics.actualBoundingBoxRight)
-                +Math.abs(textMetrics.actualBoundingBoxLeft)
-                +Math.abs(textMetrics.actualBoundingBoxRight)
+            cellWidth =
+                Math.abs(timeMetrics.actualBoundingBoxLeft)
+                + Math.abs(timeMetrics.actualBoundingBoxRight)
+                + Math.abs(textMetrics.actualBoundingBoxLeft)
+                + Math.abs(textMetrics.actualBoundingBoxRight)
+                + 2
+            console.log('update ocurred')
+        }
+        else {
+            fs.writeFileSync('./data/cellData/cell1.txt', `${530-cellMove}`)
+            console.log('no update')
+            ctx.fillStyle = '#00ff00'
+            ctx.fillRect(0, fs.readFileSync('./data/cellData/cell1.txt'), 300, 1)
+            ctx.fillStyle = '#ffffff'
+            ctx.font = "11px consolas"
+            ctx.fillText(`${fs.readFileSync('./data/cellData/time1.txt')}`, textX1, textY1 - cellMove)
+            var timeMetrics = ctx.measureText(`${fs.readFileSync('./data/cellData/time1.txt')}`)
+            var text = 'New MAL Entry!'
+            ctx.fillText(text, textX1 + timeMetrics.width + 2, textY1 - cellMove)
+            var textMetrics = ctx.measureText(text)
+            cellWidth =
+                Math.abs(timeMetrics.actualBoundingBoxLeft)
+                + Math.abs(timeMetrics.actualBoundingBoxRight)
+                + Math.abs(textMetrics.actualBoundingBoxLeft)
+                + Math.abs(textMetrics.actualBoundingBoxRight)
+                +4
         }
 
     })
