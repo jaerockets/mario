@@ -1,3 +1,5 @@
+//write cells with classes from ground up using existing code as reference
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -17,16 +19,17 @@ var cellWidth1 = 0
 var textX1 = 0
 var textY1 = 545
 var cellMove = 10
+var cellCount = 0
 
 class Cell {
-    constructor(timeStamp, textContent, hyperLink, textWidth) {
+    constructor(timeStamp, textContent, link, textWidth) {
         this.timeStamp = timeStamp
         this.textContent = textContent
-        this.hyperlink = hyperLink
+        this.link = link
         this.textWidth = textWidth
     }
     anime = function () {
-        const URL = 'https://sean.fish/mal_unapproved/anime';
+        const URL = this.link;
         fetch(URL)
             .then(function (res) { return res.text() })
             .then(function (text) {
@@ -84,6 +87,9 @@ class Cell {
             })
             .catch(function (err) { console.log(err) });
     }
+    test = function() {
+        
+    }
 }
 
 var anime = 'New MAL Entry!'
@@ -98,23 +104,25 @@ var cellWidthAnime =
 
 let cells = [];
 
-while (cells.length < 1) {
     let cell = new Cell(
         fs.readFileSync('./data/cellData/time1.txt').toString(),
-        anime,
+        'New MAL Entry!',
         'https://sean.fish/mal_unapproved/anime',
         cellWidthAnime,
     )
     cells.push(cell)
-}
 
-function garbo() {
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].anime();
-    }
-}
+    let cell1 = new Cell(
+        1,
+        2,
+        3,
+        4,
+    )
+    cells.push(cell1)
 
-garbo()
+
+    cells[0].anime();
+    cells[1].test()
 
 var clickX = 0
 var clickY = 0
